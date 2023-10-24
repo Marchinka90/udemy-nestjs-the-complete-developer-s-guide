@@ -6,8 +6,5 @@ export class Report {
     id: number;
 
     @Column()
-    email: string;
-
-    @Column()
-    password: string;
+    price: string;
 }
