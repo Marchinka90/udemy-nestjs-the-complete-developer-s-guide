@@ -23,4 +23,10 @@ content-type: application/json
 }
 
 ### Delete a particular user with a given ID
-DELETE http://localhost:3000/auth/2
+DELETE http://localhost:3000/auth/4
+
+### Get the currently singed in user 
+GET http://localhost:3000/auth/whoami
+
+### Sign out
+GET http://localhost:3000/auth/signout
