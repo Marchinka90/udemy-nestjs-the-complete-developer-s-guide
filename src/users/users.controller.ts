@@ -8,7 +8,8 @@ import {
     Delete, 
     Patch, 
     NotFoundException,
-    Session
+    Session,
+    UseInterceptors
 } from '@nestjs/common';
 import { CreateUserDto } from './dots/create-user.dto';
 import { UpdateUserDto } from './dots/update-user.dto';
@@ -16,19 +17,27 @@ import { UsersService } from './users.service';
 import { AuthService } from './auth.service';
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { UserDto } from './dots/user.dto';
+import { CurrentUser } from './decorators/current-user.decorater';
+import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 
 @Controller('auth')
 @Serialize(UserDto)
+@UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
     constructor(
         private userService: UsersService,
         private authService: AuthService
     ) { } 
     
+    // @Get('/whoami')
+    // whoAmI(@Session() session: any) {
+    //     return this.userService.findOne(session.userId);
+    // }   
+
     @Get('/whoami')
-    whoAmI( @Session() session: any) {
-        return this.userService.findOne(session.userId);
-    }   
+    whoAmI(@CurrentUser() user: string) {
+        return user;
+    }  
 
     @Post('/signup')
     async createUser(@Body() body: CreateUserDto, @Session() session: any) {

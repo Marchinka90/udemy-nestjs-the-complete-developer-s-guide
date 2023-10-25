@@ -29,4 +29,4 @@ DELETE http://localhost:3000/auth/4
 GET http://localhost:3000/auth/whoami
 
 ### Sign out
-GET http://localhost:3000/auth/signout
+POST http://localhost:3000/auth/signout
