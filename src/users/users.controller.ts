@@ -19,7 +19,7 @@ import { Serialize } from '../interceptors/serialize.interceptor';
 import { UserDto } from './dots/user.dto';
 import { CurrentUser } from './decorators/current-user.decorater';
 import { User } from './user.entity';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -28,11 +28,6 @@ export class UsersController {
         private userService: UsersService,
         private authService: AuthService
     ) { } 
-    
-    // @Get('/whoami')
-    // whoAmI(@Session() session: any) {
-    //     return this.userService.findOne(session.userId);
-    // }   
 
     @Get('/whoami')
     @UseGuards(AuthGuard)
@@ -61,7 +56,6 @@ export class UsersController {
 
     @Get('/:id')
     async findUser(@Param('id') id: string) {
-        
         const user = await this.userService.findOne(parseInt(id));
         if (!user) {
             return new NotFoundException('User not found');
