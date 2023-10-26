@@ -11,7 +11,7 @@ describe('UsersController', () => {
     let fakeAuthService: Partial<AuthService>;
 
     beforeEach(async () => {
-        fakeUsersService= {
+        fakeUsersService = {
             findOne: (id: number) => {
                 return Promise.resolve({ id, email: 'autotest@test.com', password: '123456' } as User);
             },
